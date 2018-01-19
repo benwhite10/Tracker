@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="js/jquery.js"></script>
+	<script src="js/heatmap.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpQmVHhAxq9hekZoSbNXfBOS1jZmAVF1s"></script>
+	<script src="js/tracker.js"></script>
+	<link rel="stylesheet" type="text/css" href="index.css">
+</head>
+
+<body>
+<div id="main_content">
+	<div id="title">Heatmap</div>
+	<div id="heatmap_container">
+		<div id="heatmap" class="heatmap"></div>
+	</div>
+	<div id="heatmap_controls">
+		<select id="gps_select" onchange="createMap()"></select>
+		<form id="upload_form" action="upload.php" method="post" enctype="multipart/form-data">
+		    <input type="file" name="fileToUpload" id="fileToUpload">
+		    <input id="upload_submit" type="submit" value="Upload GPX" name="submit">
+		</form>
+		<div class="heatmap_control">
+			<div id="radius_input_label" class="label">Radius</div>
+			<input id="radius_input" type="range" min="1" max="50" value="30" oninput="updateInputs()">
+		</div>
+		<div class="heatmap_control">
+			<div id="blur_input_label" class="label">Blur</div>
+			<input id="blur_input" type="range" min="0" max="100" value="50" oninput="updateInputs()">
+		</div>
+		<div class="heatmap_control">
+			<div id="max_input_label" class="label">Max</div>
+			<input id="max_input" type="range" min="1" max="100" value="50" oninput="updateInputs()">
+		</div>
+		<!--<div class="heatmap_button control_button">Generate Heatmap</div>
+		<div class="pitch_button control_button" onclick="updatePitch()" >Update pitch</div>-->
+	</div>
+	<div id="map"></div>
+	<div id="heatmap_overlay_div">
+		<canvas id="heatmap_overlay"></canvas>
+	</div>
+</div>
+
+</body>
+</html>

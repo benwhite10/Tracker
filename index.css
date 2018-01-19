@@ -1,0 +1,161 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Helvetica, Arial, Sans-Serif;
+}
+
+#main_content {
+	display: block;
+	width: 90%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0;
+	height: auto;
+}
+
+#title {
+	display: inline-block;
+	float: left;
+	width: 100%;
+	margin: 0;
+	margin-top: 10px;
+	height: 80px;
+	line-height: 80px;
+	text-align: center;
+	font-size: 2.0rem;
+}
+
+#heatmap_container {
+	display: inline-block;
+	float: left;
+	width: 50%;
+	height: 500px;
+	margin: 0;
+	padding: 0;
+}
+
+/*#heatmap {
+	border: 1px solid #000;
+}*/
+
+#heatmap_controls {
+	display: inline-block;
+	float: left;
+	height: 500px;
+	width: 50%;
+	margin: 0;
+}
+
+.heatmap_control {
+	display: inline-block;
+	width: 100%;
+	height: 80px;
+	margin: 0;
+}
+
+.heatmap_control > .label {
+	display: inline-block;
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	margin: 0;
+	text-align: center;
+	font-size: 1.2rem;
+}
+
+.heatmap_control > input[type="range"] {
+	display: inline-block;
+	width: calc(100% - 40px);
+	height: 40px;
+	line-height: 40px;
+	margin: 0 20px;
+}
+
+.control_button {
+	display: inline-block;
+	width: calc(100% - 40px);
+	height: 50px;
+	line-height: 50px;
+	margin: 10px 20px;
+	text-align: center;
+	font-size: 1.4rem;
+	font-family: Helvetica, Arial, Sans-Serif;
+	cursor: pointer;
+	background: #87D37C;
+}
+
+.control_button:hover {
+	background: #2ECC71;
+}
+
+.pitch_button {
+	background: #22A7F0;
+}
+
+.pitch_button:hover {
+	background: #4183D7;
+}
+
+#map {
+	display: inline-block;
+	float: left;
+	height: 500px;
+	width: 100%;
+	margin: 20px 0;
+}
+
+#heatmap_overlay_div {
+	position: absolute;
+	background: transparent;
+}
+
+#heatmap_overlay {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+#gps_select {
+	width: calc(100% - 40px);
+	height: 40px;
+	margin: 0 20px;
+	padding: 0;
+	font-size: 1.2rem;
+	line-height: 40px;
+}
+
+#upload_form {
+	width: calc(100% - 40px);
+	height: 40px;
+	margin: 10px 20px;
+	padding: 0;
+	line-height: 40px;
+	font-size: 1.2rem;
+}
+
+#upload_submit {
+	margin: 0;
+	padding: 0;
+	float: right;
+	height: 40px;
+	width: 150px;
+	font-size: 1.1rem;
+	line-height: 40px;
+	cursor: pointer;
+	background: #22A7F0;
+	outline: none;
+	border: none;
+}
+
+#upload_submit:hover {
+	background: #4183D7;
+}
+
+#fileToUpload {
+	margin: 0;
+	padding: 0;
+	width: calc(100% - 150px);
+	height: 30px;
+	font-size: 1.1rem;
+}
