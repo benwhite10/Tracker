@@ -3,12 +3,6 @@ var points;
 
 $(document).ready(function(){
 	getGPSData();
-	// Get data
-	/*$.get('data.gpx', function(data) {
-		storeData(data);
-		convertTrackingToCoordinates();
-		initMap();
-	});*/
 });
 
 function getGPSData() {
@@ -19,10 +13,7 @@ function getGPSData() {
         dataType: "json",
         success: function(json) {
             for (i in json) {
-				$("#gps_select").append($('<option>',
-					 {
-					    text : json[i]
-					}));
+				$("#gps_select").append($('<option>',{text : json[i]}));
 			}
 			$("#gps_select").select(0);
 			createMap();
@@ -108,6 +99,121 @@ function convertTrackingToCoordinates() {
 
 	localStorage.setItem("xy_tracking_data", JSON.stringify(xy_tracking_data));
 	createHeatmap();
+	getStats();
+}
+
+function getStats() {
+	var xy_tracking_data = JSON.parse(localStorage.getItem("xy_tracking_data"));
+	var xy_points = xy_tracking_data["coordinates"];
+	var length = xy_points.length;
+	var quickest_dist_1 = 50;
+	var quickest_dist_2 = 250;
+	var quickest_dist_3 = 500;
+
+	// Total time
+	var t1 = xy_points[0].time;
+	var t2 = xy_points[length - 1].time;
+	var total_time = t2 - t1;
+	var half_time = (t1 + t2) / 2;
+
+	// Total distance
+	var total_distance = 0;
+	var first_half_distance = 0;
+	var second_half_distance = 0;
+	var max_speed = 0;
+	var start_time = xy_points[0].time;
+
+	for (var i = 0; i < xy_points.length - 1; i++) {
+		x1 = xy_points[i].x;
+		x2 = xy_points[i + 1].x;
+		y1 = xy_points[i].y;
+		y2 = xy_points[i + 1].y;
+		t1 = xy_points[i].time;
+		t2 = xy_points[i + 1].time;
+		dist = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
+		speed = dist / (t2 - t1);
+		max_speed = Math.max(max_speed, speed);
+		total_distance += dist;
+		if (t2 < half_time) {
+			first_half_distance += dist;
+		} else {
+			second_half_distance += dist;
+		}
+	}
+
+	var skew = Math.round(100 * (second_half_distance - first_half_distance) / total_distance);
+
+	quickest_time_1 = 999999999;
+	quickest_time_2 = 999999999;
+	quickest_time_3 = 999999999;
+	for (var i = 0; i < xy_points.length; i++) {
+		start_time = xy_points[i].time;
+		total_dist = 0;
+		quick_1 = true;
+		quick_2 = true;
+		quick_3 = true;
+		for (var j = i; j < xy_points.length - 1; j++) {
+			x1 = xy_points[j].x;
+			x2 = xy_points[j + 1].x;
+			y1 = xy_points[j].y;
+			y2 = xy_points[j + 1].y;
+			t1 = xy_points[j].time;
+			t2 = xy_points[j + 1].time;
+			dist = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
+			total_dist += dist;
+			if (quick_1 && total_dist >= quickest_dist_1) {
+				quickest_time_1 = Math.min(quickest_time_1, t2 - start_time);
+				quick_1 = false;
+			}
+			if (quick_2 && total_dist >= quickest_dist_2) {
+				quickest_time_2 = Math.min(quickest_time_2, t2 - start_time);
+				quick_2= false;
+			}
+			if (quick_3 && total_dist >= quickest_dist_3) {
+				quickest_time_3 = Math.min(quickest_time_3, t2 - start_time);
+				quick_3 = false;
+			}
+			if (!quick_1 && !quick_2 && !quick_3) break;
+		}
+	}
+
+	$("#stats_table").html("<div class='stats_table_row title'>Stats</div>");
+	$("#stats_table").append(parseStatsRow("Time", convertTimeToString(total_time)));
+	$("#stats_table").append(parseStatsRow("Total Distance", round(total_distance/1000, 1) + " km"));
+	$("#stats_table").append(parseStatsRow("First Half", round(first_half_distance/1000, 1) + " km"));
+	$("#stats_table").append(parseStatsRow("Second Half", round(second_half_distance/1000, 1) + " km"));
+	$("#stats_table").append(parseStatsRow("Skew", skew + "%"));
+	$("#stats_table").append(parseStatsRow("Max Speed", round(max_speed, 1) + " m/s"));
+	$("#stats_table").append(parseStatsRow("Quickest 50 m", convertTimeToString(quickest_time_1)));
+	$("#stats_table").append(parseStatsRow("Quickest 250 m", convertTimeToString(quickest_time_2)));
+	$("#stats_table").append(parseStatsRow("Quickest 500 m", convertTimeToString(quickest_time_3)));
+}
+
+function convertTimeToString(time) {
+	if (time < 60) {
+		return time + " s";
+	} else if (time < 3600) {
+		mins = Math.floor(time/60);
+		secs = round(time - (mins * 60), 0);
+		return mins + " m " + secs + " s";
+	} else {
+		hours = Math.floor(time/3600);
+		mins = Math.floor(60 * (Math.floor(time/3600) - hours));
+		secs = round(time - (mins * 60), 0);
+		return hours + " h " + mins + " m " + secs + " s";
+	}
+}
+function parseStatsRow(heading, detail) {
+	var html_string = "<div class='stats_table_row'>";
+	html_string += "<div class='stats_table_row_heading'>" + heading + "</div>";
+	html_string += "<div class='stats_table_row_detail'>" + detail + "</div>";
+	html_string += "</div>";
+	return html_string;
+}
+
+function round(val, dp) {
+	pow = Math.pow(10, dp);
+	return  Math.round(pow * parseFloat(val)) / pow;
 }
 
 function createHeatmap() {
@@ -117,6 +223,7 @@ function createHeatmap() {
 	var max_y = xy_tracking_data.max_vals.y;
 	var radius = 30;
 	var blur = 0.60;
+	var min = 0;
 	var max = 20;
 	var height = 500;
 	var width = height * max_x / max_y;
@@ -127,13 +234,14 @@ function createHeatmap() {
 	$("#blur_input").val(blur * 100);
 	$("#radius_input").val(radius);
 	$("#max_input").val(max);
+	$("#max_input").val(max);
 
 	$("#heatmap").css("height", height + "px");
 	$("#heatmap").css("width", width + "px");
 	var margin = "0 calc(50% - " + (width / 2) + "px)";
 	$("#heatmap").css("margin", margin);
 
-	var config = creatConfig();
+	var config = createConfig();
 	// minimal heatmap instance configuration
 	heatmapInstance = h337.create(config);
 
@@ -168,7 +276,7 @@ function createHeatmap() {
 }
 
 function updateHeatmapSettings() {
-	var config = creatConfig();
+	var config = createConfig();
 	$("#heatmap").html("");
 	heatmapInstance = h337.create(config);
 	heatmapInstance.setData(creataData(points));
@@ -220,7 +328,7 @@ function updatePitch() {
 	}
 }
 
-function creatConfig() {
+function createConfig() {
 	return {
 		container: document.getElementById('heatmap'),
 		radius: $("#radius_input").val(),
@@ -232,7 +340,7 @@ function creatConfig() {
 
 function creataData(points) {
 	return {
-		min: 0,
+		min: $("#min_input").val(),
 		max: $("#max_input").val(),
 	  	data: points
 	};
@@ -381,8 +489,15 @@ function xmlToJson(xml) {
 };
 
 function updateInputs() {
+	$("#min_input_label").html("Min (" + $("#min_input").val() + ")");
 	$("#max_input_label").html("Max (" + $("#max_input").val() + ")");
 	$("#radius_input_label").html("Radius (" + $("#radius_input").val() + ")");
 	$("#blur_input_label").html("Blur (" + ($("#blur_input").val() / 100) + ")");
 	updateHeatmapSettings();
+}
+
+function addNewGPX() {
+	$("#upload_button").addClass("hidden");
+	$("#gps_select").addClass("hidden");
+	$("#upload_form").removeClass("hidden");
 }

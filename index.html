@@ -10,30 +10,39 @@
 
 <body>
 <div id="main_content">
-	<div id="title">Heatmap</div>
+	<div id="title_container">
+		<div id="title">Heatmap</div>
+		<div id="upload_button" onclick="addNewGPX()">Add New</div>
+		<select id="gps_select" onchange="createMap()"></select>
+		<form id="upload_form" class="hidden" action="upload.php" method="post" enctype="multipart/form-data">
+		    <input type="file" name="fileToUpload" id="fileToUpload">
+		    <input id="upload_submit" type="submit" value="Upload GPX" name="submit">
+		</form>
+	</div>
 	<div id="heatmap_container">
 		<div id="heatmap" class="heatmap"></div>
 	</div>
 	<div id="heatmap_controls">
-		<select id="gps_select" onchange="createMap()"></select>
-		<form id="upload_form" action="upload.php" method="post" enctype="multipart/form-data">
-		    <input type="file" name="fileToUpload" id="fileToUpload">
-		    <input id="upload_submit" type="submit" value="Upload GPX" name="submit">
-		</form>
+		<div class="heatmap_control_title">Controls</div>
 		<div class="heatmap_control">
-			<div id="radius_input_label" class="label">Radius</div>
-			<input id="radius_input" type="range" min="1" max="50" value="30" oninput="updateInputs()">
+			<div id="radius_input_label" class="label">Radius (1)</div>
+			<input id="radius_input" type="range" min="1" max="50" value="1" oninput="updateInputs()">
 		</div>
 		<div class="heatmap_control">
-			<div id="blur_input_label" class="label">Blur</div>
-			<input id="blur_input" type="range" min="0" max="100" value="50" oninput="updateInputs()">
+			<div id="blur_input_label" class="label">Blur (0)</div>
+			<input id="blur_input" type="range" min="0" max="100" value="0" oninput="updateInputs()">
 		</div>
+		<!--<div class="heatmap_control">
+			<div id="min_input_label" class="label">Min (0)</div>
+			<input id="min_input" type="range" min="0" max="50" value="0" oninput="updateInputs()">
+		</div>-->
 		<div class="heatmap_control">
-			<div id="max_input_label" class="label">Max</div>
-			<input id="max_input" type="range" min="1" max="100" value="50" oninput="updateInputs()">
+			<div id="max_input_label" class="label">Max (1)</div>
+			<input id="max_input" type="range" min="1" max="50" value="1" oninput="updateInputs()">
 		</div>
-		<!--<div class="heatmap_button control_button">Generate Heatmap</div>
-		<div class="pitch_button control_button" onclick="updatePitch()" >Update pitch</div>-->
+	</div>
+	<div id="stats_table">
+		<div class="stats_table_row title">Stats</div>
 	</div>
 	<div id="map"></div>
 	<div id="heatmap_overlay_div">

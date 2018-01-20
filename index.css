@@ -13,22 +13,29 @@ body {
 	height: auto;
 }
 
-#title {
-	display: inline-block;
-	float: left;
+#title_container {
 	width: 100%;
-	margin: 0;
-	margin-top: 10px;
-	height: 80px;
-	line-height: 80px;
+	margin: 20px 0;
+	height: 50px;
+	line-height: 50px;
 	text-align: center;
 	font-size: 2.0rem;
+	border-bottom: 1px solid #444;
+}
+
+#title {
+	width: 250px;
+	height: 50px;
+	line-height: 50px;
+	float: left;
+	text-align: left;
+	padding-left: 10px;
 }
 
 #heatmap_container {
 	display: inline-block;
 	float: left;
-	width: 50%;
+	width: 40%;
 	height: 500px;
 	margin: 0;
 	padding: 0;
@@ -42,15 +49,66 @@ body {
 	display: inline-block;
 	float: left;
 	height: 500px;
-	width: 50%;
+	width: 30%;
 	margin: 0;
 }
 
+#stats_table {
+	display: inline-block;
+	float: left;
+	height: 500px;
+	width: 30%;
+	margin: 0;
+	padding: 0;
+}
+
+.stats_table_row {
+	display: inline-block;
+	float: left;
+	height: 40px;
+	width: calc(100% - 20px);
+	margin: 0;
+	padding: 0 10px;
+	text-align: left;
+	border-bottom: #999 1px solid;
+}
+
+.stats_table_row.title {
+	text-align: center;
+	font-size: 1.6rem;
+	line-height: 50px;
+	height: 50px;
+}
+
+.stats_table_row_detail, .stats_table_row_heading {
+	display: inline-block;
+	float: left;
+	height: 40px;
+	width: 50%;
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	font-size: 1.2rem;
+	line-height: 40px;
+}
+
+.heatmap_control_title {
+	display: inline-block;
+	width: calc(100% - 40px);
+	margin: 0 20px;
+	padding: 0;
+	text-align: center;
+	font-size: 1.6rem;
+	line-height: 50px;
+	height: 50px;
+	border-bottom: #999 1px solid;
+}
 .heatmap_control {
 	display: inline-block;
 	width: 100%;
 	height: 80px;
 	margin: 0;
+	padding: 0;
 }
 
 .heatmap_control > .label {
@@ -117,39 +175,54 @@ body {
 }
 
 #gps_select {
-	width: calc(100% - 40px);
-	height: 40px;
-	margin: 0 20px;
+	display: inline-block;
+	float: right;
+	border: none;
+	border-left: 1px solid #CCC;
+	outline: none;
+	width: 400px;
+	height: 50px;
+	margin: 0;
+	padding: 0;
+	padding-left: 10px;
+	font-size: 1.2rem;
+	line-height: 50px;
+}
+
+#gps_select.hidden, #upload_button.hidden, #upload_submit.hidden, #upload_form.hidden {
+	display: none;
+}
+
+#upload_button, #upload_submit {
+	display: inline-block;
+	float: right;
+	border: none;
+	width: 150px;
+	height: 50px;
+	margin: 0;
 	padding: 0;
 	font-size: 1.2rem;
-	line-height: 40px;
+	line-height: 50px;
+	background: #22A7F0;
+	cursor: pointer;
+}
+
+#upload_button:hover, #upload_submit:hover {
+	background: #4183D7;
 }
 
 #upload_form {
-	width: calc(100% - 40px);
-	height: 40px;
-	margin: 10px 20px;
-	padding: 0;
-	line-height: 40px;
-	font-size: 1.2rem;
-}
-
-#upload_submit {
+	display: inline-block;
+	float: right;
+	border: none;
+	outline: none;
+	width: 500px;
+	height: 50px;
 	margin: 0;
 	padding: 0;
-	float: right;
-	height: 40px;
-	width: 150px;
-	font-size: 1.1rem;
-	line-height: 40px;
-	cursor: pointer;
-	background: #22A7F0;
-	outline: none;
-	border: none;
-}
-
-#upload_submit:hover {
-	background: #4183D7;
+	padding-left: 10px;
+	font-size: 1.2rem;
+	line-height: 50px;
 }
 
 #fileToUpload {
