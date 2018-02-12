@@ -198,8 +198,8 @@ function convertTimeToString(time) {
 		return mins + " m " + secs + " s";
 	} else {
 		hours = Math.floor(time/3600);
-		mins = Math.floor(60 * (Math.floor(time/3600) - hours));
-		secs = round(time - (mins * 60), 0);
+		mins = Math.floor(60 * (time/3600 - hours));
+		secs = round(time - (mins * 60) - (hours * 3600), 0);
 		return hours + " h " + mins + " m " + secs + " s";
 	}
 }
