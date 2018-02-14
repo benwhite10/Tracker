@@ -1,6 +1,7 @@
 html {
     height: 100%;
     width: 100%;
+    font-family: 'Montserrat', sans-serif;
 }
 
 body {
@@ -36,4 +37,35 @@ body {
     filter: blur(5px);
 
     opacity: 0.8;
+}
+
+#header {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    height: 50px;
+    width: 100%;
+    background: #DDD;
+}
+
+#header_name {
+    height: 50px;
+    line-height: 50px;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    padding-right: 20px;
+    float: right;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+#main_content {
+    display: block;
+    width: 90%;
+    max-width: 1000px;
+    height: 100%;
+    margin: 0px auto;
+    padding: 0;
 }

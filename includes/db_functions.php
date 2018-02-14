@@ -67,7 +67,7 @@ function db_escape_string($string) {
     return mysqli_real_escape_string($mysql, $string);
 }
 
-function succeedRequest($result){
+function succeedRequest($result) {
     $response = array(
         "success" => TRUE,
         "result" => $result);

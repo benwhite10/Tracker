@@ -33,10 +33,33 @@ function createLoginTiles(users) {
 }
 
 function createLoginTile(user) {
-    var tile_html = "<div id='tile_" + user["ID"] + "' class='login_tile'>";
+    var tile_html = "<div id='tile_" + user["ID"] + "' class='login_tile' onclick='clickLoginTile(\"" + user["Email"] + "\")'>";
     tile_html += "<div class='login_tile_photo'>";
     tile_html += "<img class='login_tile_photo_img' src='user_photos/" + user["ID"] + ".jpg'/>";
     tile_html += "</div>"
     tile_html += "<div class='login_tile_text'><h1>" + user["FirstName"] + " " + user["Surname"] + "</h1></div></div>";
     return tile_html;
+}
+
+function clickLoginTile(username) {
+    localStorage.user = "";
+    var data = {
+        type: "LOGIN",
+        username: username
+    };
+    $.ajax({
+        type: "POST",
+        data: data,
+        url: "requests/sessions.php",
+        dataType: "json",
+        success: function(json) {
+            if (json["success"]) {
+                localStorage.user = JSON.stringify(json["result"]);
+                window.location.href = "/feed.html";
+            }
+        },
+        error: function(json) {
+            console.log(json);
+        }
+    });
 }

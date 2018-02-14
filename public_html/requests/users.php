@@ -18,6 +18,9 @@ switch ($request_type){
     case "GETALLUSERS":
         getAllUsers();
         break;
+    case "GETUSERDETAILS":
+        getUserDetails();
+        break;
     default:
         failRequest("Invalid request type.");
         break;

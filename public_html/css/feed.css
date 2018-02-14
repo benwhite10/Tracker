@@ -1,0 +1,16 @@
+#add_gps_button {
+    width: calc(100% - 2px);
+    height: 50px;
+    border: 1px solid #000;
+    background: #6BB9F0;
+    cursor: pointer;
+    line-height: 50px;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 300;
+    margin-top: 100px;
+}
+
+#add_gps_button:hover {
+    background: #3498DB;
+}
