@@ -14,3 +14,10 @@
 #add_gps_button:hover {
     background: #3498DB;
 }
+
+#add_gps_container {
+    width: calc(100% - 2px);
+    height: 100px;
+    border: 1px solid #000;
+    margin-top: 20px;
+}

@@ -2,6 +2,35 @@ $(document).ready(function(){
 	checkLoginStatus();
 });
 
+function setUpUploadButton() {
+	$("#upload_form").submit(function(event) {
+		event.preventDefault();
+		$("#upload_button").html('Uploading...');
+
+		user = JSON.parse(localStorage.user);
+
+		var formData = new FormData(this);
+		formData.append("userid", user["ID"]);
+
+		$.ajax({
+			type: "POST",
+			url: "requests/upload.php",
+			data: formData,
+			contentType: false,
+			cache: false,
+			processData: false,
+	        success: function(data) {
+				console.log(data);
+				$("#file_select").val("");
+	        },
+	        error: function(data) {
+				console.log("Failure");
+				console.log(data);
+	        }
+		});
+	});
+}
+
 function checkLoginStatus() {
     if(localStorage.user === "") {
         window.location.replace("/login.html");
@@ -20,6 +49,7 @@ function checkLoginStatus() {
         success: function(json) {
             if (json["success"] && json["result"]["ValidSession"]) {
                 addNameToHeader();
+				setUpUploadButton();
             } else {
                 console.log("Bad");
                 localStorage.user = "";

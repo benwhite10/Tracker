@@ -16,6 +16,12 @@
     </div>
     <div id="main_content">
         <div id="add_gps_button">Add GPS Data</div>
+		<div id="add_gps_container">
+			<form id="upload_form" action="handler.php" method="POST" enctype="multipart/form-data">
+			  <input type="file" id="file_select" name="gps" />
+			  <button type="submit" id="upload_button">Upload</button>
+			</form>
+		</div>
     </div>
 </body>
 </html>
