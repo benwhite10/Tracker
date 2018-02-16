@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width">
+	<script src="js/jquery.js"></script>
+	<script src="js/feed.js"></script>
+	<script src="libraries/moment.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/branding.css">
+	<link rel="stylesheet" type="text/css" href="css/feed.css">
+	<link rel="shortcut icon" href="branding/favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<title>Activity Feed</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="header_name" onclick="clickName()"></div>
+    </div>
+    <div id="main_content">
+		<div id="title_container">
+			<div id="title_text">Activity Feed</div>
+			<div id="add_gps_button" onclick="clickAddGPS()"></div>
+		</div>
+		<div id="add_gps_container">
+			<div id="file_display">Click here to upload file...</div>
+			<div id="submit_button">Upload</div>
+			<form id="upload_form" action="" method="POST" enctype="multipart/form-data">
+				<input type="file" id="file_select" name="gps" />
+			</form>
+		</div>
+		<div id="activity_feed_container"></div>
+    </div>
+</body>
+</html>

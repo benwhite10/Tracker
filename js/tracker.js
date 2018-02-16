@@ -203,6 +203,7 @@ function convertTimeToString(time) {
 		return hours + " h " + mins + " m " + secs + " s";
 	}
 }
+
 function parseStatsRow(heading, detail) {
 	var html_string = "<div class='stats_table_row'>";
 	html_string += "<div class='stats_table_row_heading'>" + heading + "</div>";
