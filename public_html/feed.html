@@ -4,6 +4,7 @@
 	<meta name="viewport" content="width=device-width">
 	<script src="js/jquery.js"></script>
 	<script src="js/feed.js"></script>
+	<script src="libraries/moment.js"></script>
     <link rel="stylesheet" type="text/css" href="css/branding.css">
 	<link rel="stylesheet" type="text/css" href="css/feed.css">
 	<link rel="shortcut icon" href="branding/favicon.ico">
@@ -18,20 +19,16 @@
     <div id="main_content">
 		<div id="title_container">
 			<div id="title_text">Activity Feed</div>
-			<div id="add_gps_button"></div>
+			<div id="add_gps_button" onclick="clickAddGPS()"></div>
 		</div>
 		<div id="add_gps_container">
-			<form id="upload_form" action="handler.php" method="POST" enctype="multipart/form-data">
-			  <input type="file" id="file_select" name="gps" />
-			  <button type="submit" id="upload_button">Upload</button>
+			<div id="file_display">Click here to upload file...</div>
+			<div id="submit_button">Upload</div>
+			<form id="upload_form" action="" method="POST" enctype="multipart/form-data">
+				<input type="file" id="file_select" name="gps" />
 			</form>
 		</div>
-		<div id="activity_feed_container">
-			<div class="activity">
-				<div class="activity_title">Monday Night Football</div>
-				<div class="activity_main"></div>
-			</div>
-		</div>
+		<div id="activity_feed_container"></div>
     </div>
 </body>
 </html>
