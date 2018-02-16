@@ -67,3 +67,7 @@ function addNameToHeader() {
     user = JSON.parse(localStorage.user);
     $("#header_name").html(user["FirstName"] + " " + user["Surname"]);
 }
+
+function clickName() {
+	window.location.href = "/login.html";
+}

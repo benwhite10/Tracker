@@ -1,6 +1,6 @@
 <?php
 $include_path = get_include_path();
-include_once $include_path . '/public_html/classes/AllClasses.php';
+//include_once $include_path . '/public_html/classes/AllClasses.php';
 
 function sec_session_start(){
     $session_name = 'sec_session_id';
